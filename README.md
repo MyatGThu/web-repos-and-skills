@@ -14,21 +14,26 @@ skills built where the ecosystem has gaps.
 - **[HOUSING-FINANCE-RESEARCH.md](./HOUSING-FINANCE-RESEARCH.md)** — libraries, tools,
   data sources, and skills for **researching apartment hunting, loans, and financing**.
 - **[MOBILE-APP-STACK.md](./MOBILE-APP-STACK.md)** contains **React Native skills adopted
-  from the Vercel libraries** for the planned iOS and Android app build: nine skills,
-  vendored under `skills/`, each verified against its source repo.
+  from Vercel and Expo** for the planned iOS and Android app build: 9 Vercel skills plus 8
+  official Expo skills, vendored under `skills/`, each verified against its source repo.
+- **[AGENT-SKILLS.md](./AGENT-SKILLS.md)** covers **agent workflow and engineering
+  skills**: how the agent plans, scopes changes, tests, debugs, and keeps output terse,
+  plus the precedence rules for when two of them overlap.
 
 ## Skills (`skills/`)
 
 Two kinds live side by side: **adopted** skills vendored from external repos per the
-expansion policy (currently the nine Vercel skills listed in MOBILE-APP-STACK.md), and
-**custom** skills built from an August 2026 ecosystem survey that confirmed no existing
-skill covers the solo POD-founder persona end to end:
+expansion policy, and **custom** skills built from an August 2026 ecosystem survey that
+confirmed no existing skill covers the solo POD-founder persona end to end. 32 skills
+total: 25 adopted (9 Vercel and 8 Expo in [MOBILE-APP-STACK.md](./MOBILE-APP-STACK.md), 7
+workflow/engineering in [AGENT-SKILLS.md](./AGENT-SKILLS.md), 1 email in
+[ECOMMERCE-STACK.md](./ECOMMERCE-STACK.md)) and 7 custom:
 
 | Skill | Fills the gap |
 |---|---|
 | [`shopify-store-builder`](./skills/shopify-store-builder/SKILL.md) | Brand idea → live premium store, one sequenced run |
 | [`pod-product-factory`](./skills/pod-product-factory/SKILL.md) | Design → IP screen → margin math → mockups → listing → sync |
-| [`premium-store-design`](./skills/premium-store-design/SKILL.md) | Brand design system → Liquid theme implementation |
+| [`premium-store-design`](./skills/premium-store-design/SKILL.md) | Brand design system → Liquid theme implementation, including an Editorial Swiss variant |
 | [`ecommerce-email-flows`](./skills/ecommerce-email-flows/SKILL.md) | POD-aware Klaviyo lifecycle flows, authored + deployed |
 | [`pod-ip-screening`](./skills/pod-ip-screening/SKILL.md) | Trademark/copyright/policy hard gate before printing |
 | [`ecommerce-margin-watch`](./skills/ecommerce-margin-watch/SKILL.md) | Live true-CAC and margin reconciliation, weekly ritual |
