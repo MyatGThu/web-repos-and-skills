@@ -1,31 +1,33 @@
 ---
 name: ecommerce-margin-watch
-description: "Continuously reconcile true unit economics for a POD store — live supplier base costs + Shopify pricing + ad spend + tool costs + returns provisioning — into per-product margins, blended true CAC, and go/no-go dashboard numbers. Use for the weekly numbers ritual, before/after any price or supplier change, at phase gates, and whenever ads are running. Fills a confirmed gap: existing skills analyze supplied data one-off; nothing reconciles across systems continuously."
+description: "Continuously reconcile true unit economics for a POD store (live supplier base costs + Shopify pricing + ad spend + tool costs + returns provisioning) into per-product margins, blended true CAC, and go/no-go dashboard numbers. Use for the weekly numbers ritual, before/after any price or supplier change, at phase gates, and whenever ads are running. Fills a confirmed gap: existing skills analyze supplied data one-off; nothing reconciles across systems continuously."
 ---
 
 # Ecommerce Margin Watch
 
 Why this exists: **68% of DTC brands underestimate true CAC by 20–40%** because they only
-count the ad platform's reported CPA — the main reason founders believe they're closer to
+count the ad platform's reported CPA, the main reason founders believe they're closer to
 profitable than they are. This skill computes the honest numbers on a schedule and holds
 them against the plan's pre-committed gates.
 
 ## Data pulls (each run)
 
-1. **Supplier costs** — live base cost + shipping per SKU from Printful/Printify APIs
+1. **Supplier costs**: live base cost + shipping per SKU from Printful/Printify APIs
    (never cached >7 days; the "Fyul" duopoly can reprice underneath us).
-2. **Store** — Shopify: prices, orders, AOV, conversion rate, discounts given.
-3. **Ad spend** — Meta/TikTok via official APIs only (spend, reported CPA — recorded but
+2. **Store** (Shopify): prices, orders, AOV, conversion rate, discounts given. Shopify-side
+   metrics can optionally be pulled with the Shopify AI Toolkit `shopify-shopifyql` skill
+   (installed as a plugin with telemetry opt-out, not vendored).
+3. **Ad spend**: Meta/TikTok via official APIs only (spend, reported CPA, recorded but
    never trusted as CAC).
-4. **Fixed stack** — plan + app subscriptions, from the tool ledger in
+4. **Fixed stack**: plan + app subscriptions, from the tool ledger in
    `lastone/docs/00-operating-runbook.md`.
-5. **Returns/chargebacks** — actuals; floor the provision at 5% of revenue even when
+5. **Returns/chargebacks**: actuals; floor the provision at 5% of revenue even when
    actuals are lower (apparel runs 20–40% return rates; POD 20–30%).
 
 ## Compute
 
 ```
-per-product gross     = retail − base − ship_subsidy − processing(2.9%+$0.30)
+per-product gross     = retail − base − ship_subsidy − processing(1.7%+$0.30 AUD, Shopify Payments AU Basic-plan online card rate; drops to 1.15%+$0.30 AUD on Plus)
 per-product margin %  = gross / retail                     [flag < 35%]
 breakeven CAC         = AOV × blended gross margin %
 TRUE CAC              = (ad spend + content/tool costs + discounts) / new customers
@@ -39,10 +41,10 @@ runway burn           = ad-testing fund remaining ÷ current monthly net burn
 One page, same order every week:
 - Store up / orders flowing to supplier / flows sending (the silent-failure check)
 - Revenue, orders, AOV, conversion rate (vs. 1.0–1.5% new-store baseline)
-- TRUE CAC vs. breakeven CAC — **the number that decides everything**
+- TRUE CAC vs. breakeven CAC: **the number that decides everything**
 - Email/SMS % of revenue (target ramp: 15–20% by mo 7–9, 25–30% by mo 13–18)
 - Per-product margin table, flagged rows first; any supplier repricing since last run
-- Returns/chargeback rate (chargebacks > 0.5% = red alert — processor-hold territory)
+- Returns/chargeback rate (chargebacks > 0.5% = red alert: processor-hold territory)
 - Ad-fund remaining + months of runway
 - Phase-gate tracker, both conditions of each gate: month-6 (net within $500 of breakeven
   **and** a creative holding CPA ≤ $32 for 14 consecutive running days) and month-12
@@ -58,9 +60,9 @@ One page, same order every week:
 
 ## Honesty rules
 
-- Never report ad-platform CPA as CAC. Never exclude "one-time" costs — they recur.
+- Never report ad-platform CPA as CAC. Never exclude "one-time" costs: they recur.
 - Attribute organic modestly (last-click, not platform-claimed).
-- The gates are pre-committed in BUSINESS_PLAN.md; this skill reports distance to them —
+- The gates are pre-committed in BUSINESS_PLAN.md; this skill reports distance to them:
   it does not move them.
 
 ## Related
